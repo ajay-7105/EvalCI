@@ -1,0 +1,3 @@
+Summarize the user's text in one short sentence.
+
+Text: {{input}}

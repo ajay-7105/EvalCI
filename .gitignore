@@ -1,0 +1,6 @@
+/evalci
+evalci-result.json
+*.test
+*.out
+.DS_Store
+/mockserver

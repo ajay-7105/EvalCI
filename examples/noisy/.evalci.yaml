@@ -1,0 +1,10 @@
+# A deliberately noisy suite: a high-temperature model asked for a coin flip, so run-to-run
+# scores swing widely and the case is reported UNRELIABLE instead of passing or failing.
+runs_per_case: 8
+min_drop_threshold: 5.0
+max_spread_before_unreliable: 20.0
+
+providers:
+  ollama:
+    base_url: http://localhost:11434
+    max_concurrent: 2

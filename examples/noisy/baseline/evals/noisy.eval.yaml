@@ -1,0 +1,21 @@
+name: noisy
+prompt: prompts/coin.txt
+model:
+  provider: ollama
+  name: llama3.2:1b
+  temperature: 1.8 # high temperature: outputs vary between runs
+
+cases:
+  - id: coin-flip
+    input: "Flip."
+    assertions:
+      - type: exact-match
+        expected: HEADS
+
+  - id: coin-flip-judged
+    input: "Flip."
+    assertions:
+      # Rubric-judged variant: a weak judge on a noisy output is also reported UNRELIABLE.
+      - type: llm-rubric
+        rubric: "The reply is exactly one word: HEADS or TAILS."
+        judge: { provider: ollama, model: "llama3.2:1b" }

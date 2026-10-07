@@ -1,0 +1,9 @@
+# Settings for the offline example. Requires a local Ollama server with the model below.
+runs_per_case: 5
+min_drop_threshold: 5.0
+max_spread_before_unreliable: 20.0
+
+providers:
+  ollama:
+    base_url: http://localhost:11434
+    max_concurrent: 2

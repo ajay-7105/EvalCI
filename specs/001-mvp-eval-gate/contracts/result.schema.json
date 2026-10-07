@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvalCI result",
+  "type": "object",
+  "required": ["schema_version", "decision", "exit_code", "settings", "cases"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "decision": { "enum": ["PASS", "WARN", "FAIL", "ERROR"] },
+    "exit_code": { "enum": [0, 1, 2] },
+    "settings": {
+      "type": "object",
+      "required": ["runs_per_case", "min_drop_threshold", "max_spread_before_unreliable"],
+      "properties": {
+        "runs_per_case": { "type": "integer", "minimum": 1 },
+        "min_drop_threshold": { "type": "number" },
+        "max_spread_before_unreliable": { "type": "number" }
+      }
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["suite", "case", "critical", "status", "baseline", "candidate"],
+        "additionalProperties": false,
+        "properties": {
+          "suite": { "type": "string" },
+          "case": { "type": "string" },
+          "critical": { "type": "boolean" },
+          "status": { "enum": ["PASS", "REGRESSED", "UNRELIABLE", "ERROR"] },
+          "drop": { "type": ["number", "null"] },
+          "baseline": { "$ref": "#/$defs/side" },
+          "candidate": { "$ref": "#/$defs/side" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "side": {
+      "type": "object",
+      "required": ["runs", "failed_runs", "scores"],
+      "additionalProperties": false,
+      "properties": {
+        "runs": { "type": "integer", "minimum": 0 },
+        "failed_runs": { "type": "integer", "minimum": 0 },
+        "scores": { "type": "array", "items": { "type": "number", "minimum": 0, "maximum": 100 } },
+        "average": { "type": ["number", "null"] },
+        "spread": { "type": ["number", "null"] }
+      }
+    }
+  }
+}

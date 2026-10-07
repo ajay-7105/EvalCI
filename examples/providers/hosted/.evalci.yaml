@@ -1,0 +1,11 @@
+# Hosted providers. Keys are read from the environment variables named here, never from files.
+runs_per_case: 5
+
+providers:
+  anthropic:
+    api_key_env: ANTHROPIC_API_KEY
+    max_concurrent: 4
+    requests_per_minute: 50
+  openai:
+    api_key_env: OPENAI_API_KEY
+    max_concurrent: 4

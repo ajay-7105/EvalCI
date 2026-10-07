@@ -1,0 +1,15 @@
+name: summarize
+prompt: prompts/summarize.txt # contains {{input}}: the whole prompt is sent as one user message
+model:
+  provider: ollama
+  name: llama3.2:1b
+  temperature: 0.2
+
+cases:
+  - id: refund-policy
+    input: "Customers may return any item within 30 days of delivery for a full refund, provided it is unused and in its original packaging."
+    assertions:
+      # A judge model scores the output against a rubric, 0-100.
+      - type: llm-rubric
+        rubric: "The summary is a single short sentence and mentions the 30 day return window."
+        judge: { provider: ollama, model: "llama3.2:1b" }

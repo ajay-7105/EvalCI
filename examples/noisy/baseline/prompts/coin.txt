@@ -1,0 +1,1 @@
+Flip a fair coin. Reply with exactly one word, in capital letters, chosen at random: HEADS or TAILS.

@@ -1,0 +1,26 @@
+name: support
+prompt: prompts/support.txt
+model:
+  provider: ollama
+  name: llama3.2:1b
+  temperature: 0 # deterministic: one run per variant
+
+cases:
+  - id: late-order
+    input: "Hi, my order 4821 has not arrived yet."
+    assertions:
+      - type: exact-match
+        expected: "4821"
+
+  - id: damaged-order
+    input: "Order 5530 arrived damaged."
+    assertions:
+      - type: exact-match
+        expected: "5530"
+
+  - id: where-is-it
+    input: "Where is order 8842?"
+    critical: false # visible when it regresses, but never blocks the merge
+    assertions:
+      - type: exact-match
+        expected: "8842"
